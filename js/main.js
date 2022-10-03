@@ -16,7 +16,7 @@ console.log(getRandomInteger(1, 10));
 function getRandomFloat(min, max, count) {
   const NUMBER_OF_CHARACTER = count;
 
-  if (max <= min || min < 0 || max < 0) {
+  if (max <= min || min < 0 || max < 0 || count < 0) {
     return NaN;
   }
 
@@ -24,4 +24,4 @@ function getRandomFloat(min, max, count) {
   return +RANDOM_NUMBER.toFixed(NUMBER_OF_CHARACTER);
 }
 
-console.log(getRandomFloat(1, 10, 2));
+console.log(getRandomFloat(1, 10, 1));
