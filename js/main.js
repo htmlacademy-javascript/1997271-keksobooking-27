@@ -8,7 +8,7 @@ const getRandomNumber = (min, max, count = 0) => {
     [min, max] = [max, min];
   }
 
-  return +(Math.random() * (max - min) + min).toFixed(count);
+  return +(Math.random() * (max - min + 1) + min).toFixed(count);
 };
 
 console.log(getRandomNumber(1, 10, 2));
