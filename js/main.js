@@ -114,6 +114,8 @@ const createObject = () => {
 
 //Создание массива
 
-const similarOffer = Array.from({length:10}, createObject);
+const similarOffer = () => Array.from({length:10}, createObject);
+
+similarOffer();
 
 
