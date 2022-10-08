@@ -90,21 +90,21 @@ const createObject = () => {
       avatar: `img/avatars/user${padValue(getRandomNumber(1, 10))}.png`,
     },
     offer : {
-      title: getRandomArrayElement(TITLE),
-      adress:{
+      title : getRandomArrayElement(TITLE),
+      adress : {
         lat,
         lng,
       },
       price : getRandomNumber(1, 100000),
       type : getRandomArrayElement(TYPE),
       rooms : getRandomNumber(1, 5),
-      checkin :getRandomArrayElement(CHECKIN),
-      checkout :getRandomArrayElement(CHECKOUT),
+      checkin : getRandomArrayElement(CHECKIN),
+      checkout : getRandomArrayElement(CHECKOUT),
       features : getRandomArrayLength(FEATURES,getRandomNumber(1,5)),
       description : getRandomArrayElement(DESCRIPTION),
       photos : getRandomArrayLength(PHOTOS,getRandomNumber(1,3)),
     },
-    location: {
+    location : {
       lat,
       lng
     }
