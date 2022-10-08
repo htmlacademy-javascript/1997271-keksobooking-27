@@ -116,6 +116,4 @@ const createObject = () => {
 
 const similarOffer = Array.from({length:10}, createObject);
 
-console.log(similarOffer);
-
 
