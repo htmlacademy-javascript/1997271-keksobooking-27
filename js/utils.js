@@ -1,6 +1,6 @@
 //Генерация случайных чисел
-const getRandomNumber = (min, max, count = 0) => {
-  if (min === max || min < 0 || max < 0) {
+const getRandomNumber = (min, max, decimalPlaces) => {
+  if (min < 0 || min === max) {
     return NaN;
   }
 
@@ -8,7 +8,10 @@ const getRandomNumber = (min, max, count = 0) => {
     [min, max] = [max, min];
   }
 
-  return +(Math.random() * (max - min) + min).toFixed(count);
+  if (decimalPlaces) {
+    return +(Math.random() * (max - min) + min).toFixed(decimalPlaces);
+  }
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 //Создание массива из случайных значений
