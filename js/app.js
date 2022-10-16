@@ -1,7 +1,6 @@
 import {
   getRandomNumber,
   shuffleArray,
-  createAvatarSrc,
   getRandomArrayElement,
 } from './utils.js';
 
@@ -57,6 +56,14 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+//Добаления нуля однозначным числам
+const createAvatarSrc = (value) => {
+  if (value < 10) {
+    value = `0${value}`;
+  }
+  return `img/avatars/user${value}.png`;
+};
+
 //Создание объекта
 const createObject = () => {
   const location = {
@@ -88,7 +95,7 @@ const createObject = () => {
 
 //Создание массива
 
-const CreateSimilarOffers = () =>
+const сreateSimilarOffers = () =>
   Array.from({ length: OFFER_COUNTER }, createObject);
 
-export { CreateSimilarOffers };
+export { сreateSimilarOffers };

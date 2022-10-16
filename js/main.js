@@ -1,3 +1,3 @@
-import { CreateSimilarOffers } from './app.js';
+import { createSimilarOffers } from './app.js';
 
-CreateSimilarOffers();
+createSimilarOffers();

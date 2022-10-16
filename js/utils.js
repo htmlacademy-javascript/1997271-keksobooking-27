@@ -20,21 +20,8 @@ const shuffleArray = (array) => {
   return array;
 };
 
-//Добаления нуля однозначным числам
-const createAvatarSrc = (value) => {
-  if (value < 10) {
-    value = `0${value}`;
-  }
-  return `img/avatars/user${value}.png`;
-};
-
 //Получения случайного элемента массива
 const getRandomArrayElement = (elements) =>
   elements[getRandomNumber(0, elements.length - 1)];
 
-export {
-  getRandomNumber,
-  shuffleArray,
-  createAvatarSrc,
-  getRandomArrayElement,
-};
+export { getRandomNumber, shuffleArray, getRandomArrayElement };
