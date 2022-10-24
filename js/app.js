@@ -15,6 +15,8 @@ const LOCATION = {
   },
 };
 
+const OFFER_COUNTER = 10;
+
 const TITLES = [
   'Стандартная квартира в центре',
   'Большая квартирка на окрайне',
@@ -93,7 +95,7 @@ const createObject = () => {
 
 //Создание массива
 
-const сreateSimilarOffers = (count) =>
-  Array.from({ length: count }, createObject);
+const createSimilarOffers = () =>
+  Array.from({ length: OFFER_COUNTER }, createObject);
 
-export { сreateSimilarOffers };
+export { createSimilarOffers };
