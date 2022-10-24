@@ -1,3 +1,6 @@
-import { createSimilarOffers } from './app.js';
+import { createCard } from './popup.js';
+import { createSimilarOffers } from './data.js';
 
-createSimilarOffers();
+const similarOffers = createSimilarOffers();
+
+createCard(similarOffers[0]);

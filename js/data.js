@@ -4,8 +4,6 @@ import {
   getRandomArrayElement,
 } from './utils.js';
 
-const OFFER_COUNTER = 10;
-
 const LOCATION = {
   lat: {
     min: 35.65,
@@ -16,6 +14,8 @@ const LOCATION = {
     max: 139.8,
   },
 };
+
+const OFFER_COUNTER = 10;
 
 const TITLES = [
   'Стандартная квартира в центре',
@@ -95,7 +95,7 @@ const createObject = () => {
 
 //Создание массива
 
-const сreateSimilarOffers = () =>
+const createSimilarOffers = () =>
   Array.from({ length: OFFER_COUNTER }, createObject);
 
-export { сreateSimilarOffers };
+export { createSimilarOffers };
