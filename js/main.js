@@ -1,5 +1,5 @@
 import { createCard } from './popup.js';
-import { createSimilarOffers } from './app.js';
+import { createSimilarOffers } from './data.js';
 
 const similarOffers = createSimilarOffers();
 

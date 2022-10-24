@@ -34,11 +34,11 @@ const createRooms = (firstData, secondData, parent, selector) => {
     return;
   }
 
-  const message = !secondData
-    ? `${firstData} комнаты`
-    : `${firstData} комнаты для ${secondData} гостей`;
+  const firstText = firstData ? `${firstData} комнаты` : '';
+  const secondText = secondData ? `для ${secondData} гостей` : '';
+  const divider = firstText && secondText ? ' ' : '';
 
-  element.textContent = `${message}`;
+  element.textContent = `${firstText}${divider}${secondText}`;
 };
 
 const createTime = (firstData, secondData, parent, selector) => {
@@ -50,9 +50,9 @@ const createTime = (firstData, secondData, parent, selector) => {
 
   const firstText = firstData ? `Заезд до ${firstData}` : '';
   const secondText = secondData ? `Выезд после ${secondData}` : '';
-  const devider = firstText && secondText ? ', ' : '';
+  const divider = firstText && secondText ? ', ' : '';
 
-  element.textContent = `${firstText}${devider}${secondText}`;
+  element.textContent = `${firstText}${divider}${secondText}`;
 };
 
 const createTypeHouse = (data, parent, selector) => {
@@ -60,10 +60,7 @@ const createTypeHouse = (data, parent, selector) => {
   if (!data) {
     element.remove();
   }
-  for (let key in popupType) {
-    key = data;
-    element.textContent = popupType[key];
-  }
+  element.textContent = popupType[data] || 'Квартира';
 };
 
 const createFeatures = (data, parent, selector, parentSelector) => {
@@ -88,15 +85,10 @@ const createPhotos = (data, parent, selector, parentSelector) => {
     photoParent.remove();
   }
   data.forEach((photoSrc) => {
-    if (data.length >= 1) {
-      photoItem.remove();
-      const photoClone = photoItem.cloneNode(true);
-      photoParent.appendChild(photoClone);
-      photoClone.src = photoSrc;
-    }
-    if (data === 0) {
-      photoParent.remove();
-    }
+    photoItem.remove();
+    const photoClone = photoItem.cloneNode(true);
+    photoParent.appendChild(photoClone);
+    photoClone.src = photoSrc;
   });
 };
 
