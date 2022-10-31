@@ -13,6 +13,15 @@ const ROOMS_OPTIONS = {
   3: ['3', '2', '1'],
   100: ['0'],
 };
+
+const HOUSING_TYPE = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 3000,
+  palace: 10000,
+};
+
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
@@ -42,28 +51,29 @@ const onChangeTypeHouse = (value) => {
   let price = 0;
   switch (value) {
     case 'bungalow':
-      price = 0;
+      price = HOUSING_TYPE.bungalow;
       break;
     case 'flat':
-      price = 1000;
+      price = HOUSING_TYPE.flat;
       break;
     case 'hotel':
-      price = 3000;
+      price = HOUSING_TYPE.hotel;
       break;
     case 'house':
-      price = 5000;
+      price = HOUSING_TYPE.house;
       break;
     case 'palace':
-      price = 10000;
+      price = HOUSING_TYPE.palace;
       break;
   }
   priceField.min = price;
   priceField.placeholder = price;
 };
 
-typeField.addEventListener('change', (evt) => {
-  onChangeTypeHouse(evt.target.value);
-});
+const validatePrice = () => priceField.value >= HOUSING_TYPE[typeField.value];
+
+const createErrorMessagePrice = () =>
+  `Цена не менее ${HOUSING_TYPE[typeField.value]}`;
 
 const validateRooms = () =>
   ROOMS_OPTIONS[roomsField.value].includes(guestsField.value);
@@ -80,6 +90,7 @@ ${guestsField.value}${declOfNum(guestsField.value, [
 
 validateField(roomsField, validateRooms, createErrorMessage);
 validateField(guestsField, validateRooms, createErrorMessage);
+validateField(priceField, validatePrice, createErrorMessagePrice);
 
 timeInField.addEventListener('change', () => {
   onChangeSyncField('#timein', '#timeout', form);
@@ -87,6 +98,10 @@ timeInField.addEventListener('change', () => {
 
 timeOutField.addEventListener('change', () => {
   onChangeSyncField('#timeout', '#timein', form);
+});
+
+typeField.addEventListener('change', (evt) => {
+  onChangeTypeHouse(evt.target.value);
 });
 
 form.addEventListener('submit', (evt) => {
