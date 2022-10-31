@@ -27,4 +27,15 @@ const shuffleArray = (array) => {
 const getRandomArrayElement = (elements) =>
   elements[getRandomNumber(0, elements.length - 1)];
 
-export { getRandomNumber, shuffleArray, getRandomArrayElement };
+//числительные
+
+const declOfNum = (number, titles) => {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return titles[
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : cases[number % 10 < 5 ? number % 10 : 5]
+  ];
+};
+
+export { getRandomNumber, shuffleArray, getRandomArrayElement, declOfNum };
