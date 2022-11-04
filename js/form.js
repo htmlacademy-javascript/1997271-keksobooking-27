@@ -1,20 +1,23 @@
-import { declOfNum } from './utils.js';
 const form = document.querySelector('.ad-form');
-const roomsField = form.querySelector('[name="rooms"]');
-const guestsField = form.querySelector('[name="capacity"]');
-const timeInField = form.querySelector('#timein');
-const timeOutField = form.querySelector('#timeout');
-const typeField = form.querySelector('#type');
-const priceField = form.querySelector('#price');
+const titleField = document.querySelector('#title');
+const roomsField = document.querySelector('#room_number');
+const guestsField = document.querySelector('#capacity');
+const timeInField = document.querySelector('#timein');
+const timeOutField = document.querySelector('#timeout');
+const typeField = document.querySelector('#type');
+const priceField = document.querySelector('#price');
 
-const ROOMS_OPTIONS = {
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+
+const roomsToOptions = {
   1: ['1'],
   2: ['2', '1'],
   3: ['3', '2', '1'],
   100: ['0'],
 };
 
-const HOUSING_TYPE = {
+const typeToPrice = {
   bungalow: 0,
   flat: 1000,
   hotel: 3000,
@@ -28,83 +31,60 @@ const pristine = new Pristine(form, {
   errorTextClass: 'ad-form__element-error',
 });
 
-const validateField = (field, validateFn, msg) => {
-  pristine.addValidator(field, validateFn, msg);
+const validateTitleField = (value) =>
+  value.length >= MIN_TITLE_LENGTH && value.length <= MAX_TITLE_LENGTH;
+const createTitleError = () =>
+  `Длина заголовка должна быть от ${MIN_TITLE_LENGTH} до ${MAX_TITLE_LENGTH} символов. У вас ${titleField.value.length}`;
+
+const onTimeInFieldChange = () => (timeOutField.value = timeInField.value);
+const onTimeOutFieldChange = () => (timeInField.value = timeOutField.value);
+const onTypeFieldChange = (evt) => {
+  priceField.min = typeToPrice[evt.tagret.value];
+  priceField.placeholder = typeToPrice[evt.tagret.value];
 };
 
-const onChangeSyncField = (firstSelect, secondSelect, parent) => {
-  const firstElement = parent.querySelector(firstSelect);
-  const secondElement = parent.querySelector(secondSelect);
+const validatePriceField = () =>
+  priceField.value >= typeToPrice[typeField.value];
+const createPriceError = () => `Цена не менее ${typeToPrice[typeField.value]}`;
 
-  for (let i = 0; i < firstElement.length; i++) {
-    if (firstElement.options[i].selected) {
-      for (let j = 0; j < secondElement.length; j++) {
-        if (firstElement.options[i].value === secondElement.options[j].value) {
-          secondElement.options[j].selected = true;
-        }
-      }
-    }
+const validateRoomsField = () =>
+  roomsToOptions[roomsField.value].includes(guestsField.value);
+const createRoomsError = () => {
+  if (roomsField.value === '1') {
+    return 'Размещение для одного гостя';
+  }
+  if (roomsField.value === '2') {
+    return 'Размещение от одного гостя до двух гостей';
+  }
+  if (roomsField.value === '3') {
+    return 'Размещение от одного гостя до трех гостей';
+  }
+  if (roomsField.value === '100') {
+    return 'Не для гостей';
   }
 };
 
-const onChangeTypeHouse = (value) => {
-  let price = 0;
-  switch (value) {
-    case 'bungalow':
-      price = HOUSING_TYPE.bungalow;
-      break;
-    case 'flat':
-      price = HOUSING_TYPE.flat;
-      break;
-    case 'hotel':
-      price = HOUSING_TYPE.hotel;
-      break;
-    case 'house':
-      price = HOUSING_TYPE.house;
-      break;
-    case 'palace':
-      price = HOUSING_TYPE.palace;
-      break;
-  }
-  priceField.min = price;
-  priceField.placeholder = price;
-};
-
-const validatePrice = () => priceField.value >= HOUSING_TYPE[typeField.value];
-
-const createErrorMessagePrice = () =>
-  `Цена не менее ${HOUSING_TYPE[typeField.value]}`;
-
-const validateRooms = () =>
-  ROOMS_OPTIONS[roomsField.value].includes(guestsField.value);
-
-const createErrorMessage = () => `${roomsField.value}${declOfNum(
-  roomsField.value,
-  [' комната', ' комнаты', ' комнат']
-)} не для
-${guestsField.value}${declOfNum(guestsField.value, [
-  ' гостя',
-  ' гостей',
-  ' гость',
-])}`;
-
-validateField(roomsField, validateRooms, createErrorMessage);
-validateField(guestsField, validateRooms, createErrorMessage);
-validateField(priceField, validatePrice, createErrorMessagePrice);
-
-timeInField.addEventListener('change', () => {
-  onChangeSyncField('#timein', '#timeout', form);
-});
-
-timeOutField.addEventListener('change', () => {
-  onChangeSyncField('#timeout', '#timein', form);
-});
-
-typeField.addEventListener('change', (evt) => {
-  onChangeTypeHouse(evt.target.value);
-});
-
-form.addEventListener('submit', (evt) => {
+const onFormSubmit = (evt) => {
   evt.preventDefault();
   pristine.validate();
-});
+};
+
+const adSendFormListeners = () => {
+  timeInField.addEventListener('change', onTimeInFieldChange);
+  timeOutField.addEventListener('change', onTimeOutFieldChange);
+  typeField.addEventListener('change', onTypeFieldChange);
+  form.addEventListener('submit', onFormSubmit);
+};
+
+const adSendFormValidation = () => {
+  pristine.addValidator(titleField, validateTitleField, createTitleError);
+  pristine.addValidator(guestsField, validateRoomsField, createRoomsError);
+  pristine.addValidator(priceField, validatePriceField, createPriceError);
+};
+
+const adSendFormAction = () => {
+  adSendFormListeners();
+  adSendFormValidation();
+};
+
+export { adSendFormAction };
