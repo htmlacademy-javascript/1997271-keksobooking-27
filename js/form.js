@@ -22,7 +22,7 @@ const typeToPrice = {
   flat: 1000,
   hotel: 3000,
   house: 3000,
-  palace: 10000,
+  palace: 100000,
 };
 
 const pristine = new Pristine(form, {
@@ -39,8 +39,8 @@ const createTitleError = () =>
 const onTimeInFieldChange = () => (timeOutField.value = timeInField.value);
 const onTimeOutFieldChange = () => (timeInField.value = timeOutField.value);
 const onTypeFieldChange = (evt) => {
-  priceField.min = typeToPrice[evt.tagret.value];
-  priceField.placeholder = typeToPrice[evt.tagret.value];
+  priceField.min = typeToPrice[evt.target.value];
+  priceField.placeholder = typeToPrice[evt.target.value];
 };
 
 const validatePriceField = () =>

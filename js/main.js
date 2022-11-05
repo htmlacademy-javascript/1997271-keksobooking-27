@@ -1,10 +1,7 @@
-import { createCard } from './popup.js';
-import { createSimilarOffers } from './data.js';
+import { adRenderMap } from './map.js';
 import { adSendFormAction } from './form.js';
-import { activateForms } from './form-initialization.js';
+import { adRenderSlider } from './slider.js';
 
-const similarOffers = createSimilarOffers();
-
-createCard(similarOffers[0]);
+adRenderMap();
+adRenderSlider();
 adSendFormAction();
-activateForms();
