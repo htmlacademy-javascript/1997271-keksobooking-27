@@ -1,7 +1,5 @@
-import { adRenderMap } from './map.js';
-import { adSendFormAction } from './form.js';
-import { adRenderSlider } from './slider.js';
+import { initMap } from './map.js';
+import { deactivateForms } from './form-initialization.js';
 
-adRenderMap();
-adRenderSlider();
-adSendFormAction();
+deactivateForms();
+initMap();
