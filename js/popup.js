@@ -1,4 +1,3 @@
-const offerList = document.querySelector('#map-canvas');
 const offerTemplate = document
   .querySelector('#card')
   .content.querySelector('.popup');
@@ -109,7 +108,7 @@ const createCard = ({ author, offer }) => {
     '.popup__features'
   );
   createPhotos(offer.photos, offerClone, '.popup__photo', '.popup__photos');
-  offerList.appendChild(offerClone);
+  return offerClone;
 };
 
 export { createCard };

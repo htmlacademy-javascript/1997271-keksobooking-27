@@ -2,7 +2,7 @@ const adForm = document.querySelector('.ad-form');
 const filterForm = document.querySelector('.map__filters');
 
 const adFormElements = adForm.querySelectorAll('fieldset');
-const filterFormElements = filterForm.querySelectorAll('fieldset,select');
+const filterFormElements = filterForm.querySelectorAll('fieldset, select');
 
 const deactivateAdForm = () => {
   adForm.classList.add('ad-form--disabled');
@@ -14,12 +14,12 @@ const deactivateFilterForm = () => {
   filterFormElements.forEach((element) => (element.disabled = true));
 };
 
-const activateAdForm = () => {
+const engageAdForm = () => {
   adForm.classList.remove('ad-form--disabled');
   adFormElements.forEach((element) => (element.disabled = false));
 };
 
-const activateFilterForm = () => {
+const engageFilterForm = () => {
   filterForm.classList.remove('map__filters--disabled');
   filterFormElements.forEach((element) => (element.disabled = false));
 };
@@ -29,9 +29,4 @@ const deactivateForms = () => {
   deactivateFilterForm();
 };
 
-const activateForms = () => {
-  activateAdForm();
-  activateFilterForm();
-};
-
-export { deactivateForms, activateForms };
+export { deactivateForms, engageAdForm, engageFilterForm };

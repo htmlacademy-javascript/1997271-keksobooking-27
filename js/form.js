@@ -22,13 +22,14 @@ const typeToPrice = {
   flat: 1000,
   hotel: 3000,
   house: 3000,
-  palace: 10000,
+  palace: 100000,
 };
 
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
+  errorClass: 'ad-form__element--invalid',
   errorTextParent: 'ad-form__element',
-  errorTextClass: 'ad-form__element-error',
+  errorTextClass: 'ad-form__element--invalid',
 });
 
 const validateTitleField = (value) =>
@@ -39,8 +40,8 @@ const createTitleError = () =>
 const onTimeInFieldChange = () => (timeOutField.value = timeInField.value);
 const onTimeOutFieldChange = () => (timeInField.value = timeOutField.value);
 const onTypeFieldChange = (evt) => {
-  priceField.min = typeToPrice[evt.tagret.value];
-  priceField.placeholder = typeToPrice[evt.tagret.value];
+  priceField.min = typeToPrice[evt.target.value];
+  priceField.placeholder = typeToPrice[evt.target.value];
 };
 
 const validatePriceField = () =>
@@ -69,22 +70,22 @@ const onFormSubmit = (evt) => {
   pristine.validate();
 };
 
-const adSendFormListeners = () => {
+const addAFormListeners = () => {
   timeInField.addEventListener('change', onTimeInFieldChange);
   timeOutField.addEventListener('change', onTimeOutFieldChange);
   typeField.addEventListener('change', onTypeFieldChange);
   form.addEventListener('submit', onFormSubmit);
 };
 
-const adSendFormValidation = () => {
+const addAFormValidation = () => {
   pristine.addValidator(titleField, validateTitleField, createTitleError);
   pristine.addValidator(guestsField, validateRoomsField, createRoomsError);
   pristine.addValidator(priceField, validatePriceField, createPriceError);
 };
 
-const adSendFormAction = () => {
-  adSendFormListeners();
-  adSendFormValidation();
+const addAdFormAction = () => {
+  addAFormListeners();
+  addAFormValidation();
 };
 
-export { adSendFormAction };
+export { addAdFormAction };
