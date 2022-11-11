@@ -1,3 +1,5 @@
+const SHOW_TIME = 5000;
+
 //Генерация случайных чисел
 const getRandomNumber = (min, max, decimalPlaces) => {
   if (min < 0 || min === max) {
@@ -27,15 +29,32 @@ const shuffleArray = (array) => {
 const getRandomArrayElement = (elements) =>
   elements[getRandomNumber(0, elements.length - 1)];
 
-//числительные
+const showAlert = (message) => {
+  const alertTemplate = document.createElement('div');
+  alertTemplate.style.zIndex = '100';
+  alertTemplate.style.position = 'absolute';
+  alertTemplate.style.left = '0';
+  alertTemplate.style.top = '0';
+  alertTemplate.style.right = '0';
+  alertTemplate.style.padding = '10px 3px';
+  alertTemplate.style.fontSize = '16px';
+  alertTemplate.style.textAlign = 'center';
+  alertTemplate.style.backgroundColor = '#F00A00';
 
-const declOfNum = (number, titles) => {
-  const cases = [2, 0, 1, 1, 1, 2];
-  return titles[
-    number % 100 > 4 && number % 100 < 20
-      ? 2
-      : cases[number % 10 < 5 ? number % 10 : 5]
-  ];
+  alertTemplate.textContent = message;
+
+  document.body.append(alertTemplate);
+
+  setTimeout(() => {
+    alertTemplate.remove();
+  }, SHOW_TIME);
 };
+const isEscEvent = (evt) => evt.key === 'Escape';
 
-export { getRandomNumber, shuffleArray, getRandomArrayElement, declOfNum };
+export {
+  getRandomNumber,
+  shuffleArray,
+  getRandomArrayElement,
+  isEscEvent,
+  showAlert,
+};

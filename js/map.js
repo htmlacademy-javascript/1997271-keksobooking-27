@@ -1,18 +1,19 @@
 import { engageAdForm, engageFilterForm } from './form-initialization.js';
 import { createCard } from './popup.js';
 import { addAdFormAction } from './form.js';
-import { createSimilarOffers } from './data.js';
 import { initSlider } from './slider.js';
+import { getData } from './server.js';
+import { showAlert } from './utils.js';
 
 const START_LOCATION = {
   lat: 35.68172,
   lng: 139.75392,
 };
 
+const OFFER_COUNT = 10;
+
 const DECIMALS = 5;
 const MAP_ZOOM = 12;
-
-const data = createSimilarOffers();
 
 const addressInput = document.querySelector('#address');
 const interactiveMap = L.map('map-canvas');
@@ -20,6 +21,10 @@ const markerGroup = L.layerGroup();
 
 let interactiveMarker;
 let marker;
+
+const createAlersMessage = () => {
+  showAlert('Ошибка получения данных');
+};
 
 const setStartAddressValue = () => {
   addressInput.value = `${START_LOCATION.lat}, ${START_LOCATION.lng}`;
@@ -32,24 +37,33 @@ const setLocation = (target) => {
   )}, ${location.lng.toFixed(DECIMALS)}`;
 };
 
-const addMarkerGroup = () => {
+const addMarkerGroup = (offers) => {
   markerGroup.addTo(interactiveMap);
-  data.forEach((offer) => {
-    marker = L.marker(offer.location, {
-      icon: L.icon({
-        iconUrl: './img/pin.svg',
-        iconSize: [40, 40],
-        iconAnchor: [20, 40],
-      }),
-    });
+  offers.forEach((offer) => {
+    marker = L.marker(
+      {
+        lat: offer.location.lat,
+        lng: offer.location.lng,
+      },
+      {
+        icon: L.icon({
+          iconUrl: './img/pin.svg',
+          iconSize: [40, 40],
+          iconAnchor: [20, 40],
+        }),
+      }
+    );
     marker.addTo(markerGroup).bindPopup(createCard(offer));
   });
+};
+
+const setAdPins = (offers) => {
+  addMarkerGroup(offers.slice(0, OFFER_COUNT));
 };
 
 const onMarkerMove = (evt) => setLocation(evt.target);
 
 const activateAdForm = () => {
-  addMarkerGroup();
   engageAdForm();
   addAdFormAction();
   setStartAddressValue();
@@ -60,7 +74,6 @@ const initMap = () => {
   interactiveMap
     .on('load', () => {
       activateAdForm();
-      engageFilterForm();
     })
     .setView(START_LOCATION, MAP_ZOOM);
 
@@ -82,4 +95,4 @@ const initMap = () => {
   interactiveMarker.on('move', onMarkerMove);
 };
 
-export { initMap };
+export { initMap, addMarkerGroup };

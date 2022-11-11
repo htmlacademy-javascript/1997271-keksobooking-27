@@ -91,7 +91,7 @@ const createPhotos = (data, parent, selector, parentSelector) => {
   });
 };
 
-const createCard = ({ author, offer }) => {
+const createCard = ([{ author, offer }]) => {
   const offerClone = offerTemplate.cloneNode(true);
   createSimpleString(offer.title, offerClone, '.popup__title');
   createSimpleString(offer.address, offerClone, '.popup__text--address');
