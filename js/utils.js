@@ -33,7 +33,7 @@ const isEscEvent = (evt) => evt.key === 'Escape';
 
 const showAlert = (message) => {
   const alertTemplate = document.createElement('div');
-  alertTemplate.style.zIndex = '100';
+  alertTemplate.style.zIndex = '99';
   alertTemplate.style.position = 'absolute';
   alertTemplate.style.left = '0';
   alertTemplate.style.top = '0';
