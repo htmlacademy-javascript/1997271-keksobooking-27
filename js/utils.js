@@ -29,6 +29,8 @@ const shuffleArray = (array) => {
 const getRandomArrayElement = (elements) =>
   elements[getRandomNumber(0, elements.length - 1)];
 
+const isEscEvent = (evt) => evt.key === 'Escape';
+
 const showAlert = (message) => {
   const alertTemplate = document.createElement('div');
   alertTemplate.style.zIndex = '100';
@@ -40,16 +42,12 @@ const showAlert = (message) => {
   alertTemplate.style.fontSize = '16px';
   alertTemplate.style.textAlign = 'center';
   alertTemplate.style.backgroundColor = '#F00A00';
-
   alertTemplate.textContent = message;
-
   document.body.append(alertTemplate);
-
   setTimeout(() => {
     alertTemplate.remove();
   }, SHOW_TIME);
 };
-const isEscEvent = (evt) => evt.key === 'Escape';
 
 export {
   getRandomNumber,
