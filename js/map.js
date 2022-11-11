@@ -70,6 +70,11 @@ const activateAdForm = () => {
   initSlider();
 };
 
+const onDataSuccess = (offers) => {
+  setAdPins(offers);
+  engageFilterForm();
+};
+
 const initMap = () => {
   interactiveMap
     .on('load', () => {
@@ -94,5 +99,7 @@ const initMap = () => {
 
   interactiveMarker.on('move', onMarkerMove);
 };
+
+getData(onDataSuccess, createAlersMessage);
 
 export { initMap, addMarkerGroup };
