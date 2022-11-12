@@ -1,3 +1,8 @@
+import { sendData } from './server.js';
+import { renderSuccessMessage } from './success.js';
+import { renderPostErrorMessage } from './error.js';
+import { resetMap, setStartAddressValue } from './map.js';
+
 const form = document.querySelector('.ad-form');
 const titleField = document.querySelector('#title');
 const roomsField = document.querySelector('#room_number');
@@ -6,6 +11,9 @@ const timeInField = document.querySelector('#timein');
 const timeOutField = document.querySelector('#timeout');
 const typeField = document.querySelector('#type');
 const priceField = document.querySelector('#price');
+const filterForm = document.querySelector('.map__filters');
+const slider = document.querySelector('.ad-form__slider');
+const submitButton = document.querySelector('.ad-form__submit');
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -31,6 +39,10 @@ const pristine = new Pristine(form, {
   errorTextParent: 'ad-form__element',
   errorTextClass: 'ad-form__element--invalid',
 });
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+};
 
 const validateTitleField = (value) =>
   value.length >= MIN_TITLE_LENGTH && value.length <= MAX_TITLE_LENGTH;
@@ -65,9 +77,26 @@ const createRoomsError = () => {
   }
 };
 
+const onFormReset = () => {
+  resetMap();
+  form.reset();
+  pristine.reset();
+  setTimeout(() => {
+    filterForm.reset();
+    slider.noUiSlider.reset();
+    setStartAddressValue();
+  });
+};
+
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-  pristine.validate();
+  const isValid = pristine.validate();
+  const formData = new FormData(evt.target);
+
+  if (isValid) {
+    blockSubmitButton();
+    sendData(renderSuccessMessage, renderPostErrorMessage, formData);
+  }
 };
 
 const addAFormListeners = () => {
@@ -75,6 +104,7 @@ const addAFormListeners = () => {
   timeOutField.addEventListener('change', onTimeOutFieldChange);
   typeField.addEventListener('change', onTypeFieldChange);
   form.addEventListener('submit', onFormSubmit);
+  form.addEventListener('reset', onFormReset);
 };
 
 const addAFormValidation = () => {
