@@ -1,4 +1,6 @@
-const offerTemplate = document.querySelector('#card').content.querySelector('.popup');
+const offerTemplate = document
+  .querySelector('#card')
+  .content.querySelector('.popup');
 
 const popupType = {
   flat: 'Квартира',
@@ -80,18 +82,20 @@ const createFeatures = (data, parent, selector, parentSelector) => {
 const createPhotos = (data, parent, selector, parentSelector) => {
   const photoParent = parent.querySelector(parentSelector);
   const photoItem = photoParent.querySelector(selector);
-  if (!data.length) {
+  if (!data) {
     photoParent.remove();
   }
-  data.forEach((photoSrc) => {
-    photoItem.remove();
-    const photoClone = photoItem.cloneNode(true);
-    photoParent.appendChild(photoClone);
-    photoClone.src = photoSrc;
-  });
+  if (data) {
+    data.forEach((photoSrc) => {
+      photoItem.remove();
+      const photoClone = photoItem.cloneNode(true);
+      photoParent.appendChild(photoClone);
+      photoClone.src = photoSrc;
+    });
+  }
 };
 
-const createCard = ({author, offer}) => {
+const createCard = ({ author, offer }) => {
   const offerClone = offerTemplate.cloneNode(true);
   createSimpleString(offer.title, offerClone, '.popup__title');
   createSimpleString(offer.address, offerClone, '.popup__text--address');
@@ -101,10 +105,15 @@ const createCard = ({author, offer}) => {
   createRooms(offer.rooms, offer.guests, offerClone, '.popup__text--capacity');
   createTime(offer.checkin, offer.checkout, offerClone, '.popup__text--time');
   createTypeHouse(offer.type, offerClone, '.popup__type');
-  createFeatures(offer.features, offerClone, '.popup__feature', '.popup__features');
+  createFeatures(
+    offer.features,
+    offerClone,
+    '.popup__feature',
+    '.popup__features'
+  );
   createPhotos(offer.photos, offerClone, '.popup__photo', '.popup__photos');
 
   return offerClone;
 };
 
-export {createCard};
+export { createCard };
