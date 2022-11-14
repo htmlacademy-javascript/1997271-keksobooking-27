@@ -4,6 +4,7 @@ import { initSlider } from './slider.js';
 import { createCard } from './popup.js';
 import { engageAdForm, engageFilterForm } from './form-initialization.js';
 import { renderGetErrorMessage } from './error.js';
+import { filterListeners } from './filter.js';
 
 const START_LOCATION = {
   lat: 35.68172,
@@ -16,6 +17,7 @@ const MAP_ZOOM = 12;
 const addressInput = document.querySelector('#address');
 const interactiveMap = L.map('map-canvas');
 const markerGroup = L.layerGroup();
+
 let interactiveMarker;
 let marker;
 
@@ -34,6 +36,8 @@ const setLocation = (target) => {
   )}, ${location.lng.toFixed(DECIMALS)}`;
 };
 
+const onMarkerMove = (evt) => setLocation(evt.target);
+
 const addMarkerGroup = (data) => {
   markerGroup.addTo(interactiveMap);
   data
@@ -51,9 +55,13 @@ const addMarkerGroup = (data) => {
     });
 };
 
-const onMarkerMove = (evt) => setLocation(evt.target);
+const rerenderMarkers = (data) => {
+  markerGroup.clearLayers();
+  addMarkerGroup(data);
+};
 
 const resetMap = () => {
+  getData(rerenderMarkers, renderGetErrorMessage);
   interactiveMarker.setLatLng(START_LOCATION);
   interactiveMap.setView(START_LOCATION, MAP_ZOOM);
   interactiveMap.closePopup();
@@ -67,15 +75,16 @@ const activateAddForm = () => {
   setAttributeInput();
 };
 
-const getDataCallback = (data) => {
+const onDataCallback = (ads) => {
+  rerenderMarkers(ads);
   engageFilterForm();
-  addMarkerGroup(data);
+  filterListeners(ads);
 };
 
 const initMap = () => {
   interactiveMap
     .on('load', () => {
-      getData(getDataCallback, renderGetErrorMessage);
+      getData(onDataCallback, renderGetErrorMessage);
       activateAddForm();
     })
     .setView(START_LOCATION, MAP_ZOOM);
@@ -98,4 +107,4 @@ const initMap = () => {
   interactiveMarker.on('move', onMarkerMove);
 };
 
-export { initMap, resetMap, setStartAddressValue };
+export { initMap, resetMap, setStartAddressValue, rerenderMarkers };
