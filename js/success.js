@@ -7,7 +7,6 @@ const filterForm = document.querySelector('.map__filters');
 const slider = document.querySelector('.ad-form__slider');
 const submitButton = document.querySelector('.ad-form__submit');
 
-
 const createSuccessTemplate = () => `<div class="success">
                                       <p class="success__message">Ваше объявление<br>успешно размещено!</p>
                                     </div>`;
