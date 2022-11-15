@@ -75,10 +75,10 @@ const activateAddForm = () => {
   setAttributeInput();
 };
 
-const onDataCallback = (ads) => {
-  rerenderMarkers(ads);
+const onDataCallback = (data) => {
+  rerenderMarkers(data);
   engageFilterForm();
-  filterListeners(ads);
+  filterListeners(data);
 };
 
 const initMap = () => {

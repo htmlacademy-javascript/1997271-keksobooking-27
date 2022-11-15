@@ -2,6 +2,7 @@ import { sendData } from './server.js';
 import { renderSuccessMessage } from './success.js';
 import { renderPostErrorMessage } from './error.js';
 import { resetMap, setStartAddressValue } from './map.js';
+import { clearImageBlocks, addPhotoInputsListeners } from './preload-images.js';
 
 const form = document.querySelector('.ad-form');
 const titleField = document.querySelector('#title');
@@ -78,9 +79,9 @@ const createRoomsError = () => {
 };
 
 const onFormReset = () => {
-  resetMap();
-  form.reset();
   pristine.reset();
+  resetMap();
+  clearImageBlocks();
   setTimeout(() => {
     filterForm.reset();
     slider.noUiSlider.reset();
@@ -100,6 +101,7 @@ const onFormSubmit = (evt) => {
 };
 
 const addAFormListeners = () => {
+  addPhotoInputsListeners();
   timeInField.addEventListener('change', onTimeInFieldChange);
   timeOutField.addEventListener('change', onTimeOutFieldChange);
   typeField.addEventListener('change', onTypeFieldChange);
