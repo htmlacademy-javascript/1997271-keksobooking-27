@@ -1,16 +1,8 @@
 import { debounce } from './utils.js';
-
 import { rerenderMarkers } from './map.js';
 
 const DEFAULT_VALUE = 'any';
 const RERENDER_DELAY = 500;
-
-const filterForm = document.querySelector('.map__filters');
-const typeFilter = filterForm.querySelector('#housing-type');
-const priceFilter = filterForm.querySelector('#housing-price');
-const roomsFilter = filterForm.querySelector('#housing-rooms');
-const guestsFilter = filterForm.querySelector('#housing-guests');
-const featuresFilter = filterForm.querySelector('#housing-features');
 
 const housePrice = {
   low: {
@@ -23,9 +15,16 @@ const housePrice = {
   },
   high: {
     from: 50000,
-    to: Infinity,
+    to: 100000,
   },
 };
+
+const filterForm = document.querySelector('.map__filters');
+const typeFilter = filterForm.querySelector('#housing-type');
+const priceFilter = filterForm.querySelector('#housing-price');
+const roomsFilter = filterForm.querySelector('#housing-rooms');
+const guestsFilter = filterForm.querySelector('#housing-guests');
+const featuresFilter = filterForm.querySelector('#housing-features');
 
 const typeCheck = (data) =>
   typeFilter.value === DEFAULT_VALUE || typeFilter.value === data.offer.type;
