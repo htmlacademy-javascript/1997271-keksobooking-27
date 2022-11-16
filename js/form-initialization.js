@@ -9,7 +9,6 @@ const deactivateAdForm = () => {
   adFormField.forEach((element) => {
     element.disabled = true;
   });
-  adFormField.forEach((element) => (element.disabled = true));
 };
 
 const deactivateFilterForm = () => {
@@ -17,7 +16,6 @@ const deactivateFilterForm = () => {
   filterFormChildren.forEach((element) => {
     element.disabled = true;
   });
-  filterFormChildren.forEach((element) => (element.disabled = true));
 };
 
 const engageAdForm = () => {
@@ -25,7 +23,6 @@ const engageAdForm = () => {
   adFormField.forEach((element) => {
     element.disabled = false;
   });
-  adFormField.forEach((element) => (element.disabled = false));
 };
 
 const engageFilterForm = () => {
@@ -33,7 +30,6 @@ const engageFilterForm = () => {
   filterFormChildren.forEach((element) => {
     element.disabled = false;
   });
-  filterFormChildren.forEach((element) => (element.disabled = false));
 };
 
 const deactivateForms = () => {
