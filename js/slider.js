@@ -18,11 +18,11 @@ const createSlider = () => {
 };
 
 const onSliderInputUpdate = () => (priceField.value = slider.noUiSlider.get());
-const onInputSliderChange = (evt) => slider.noUiSlider.set(evt.currentTarget.value);
+const onPriceFieldChange = (evt) => slider.noUiSlider.set(evt.currentTarget.value);
 
 const addSliderListeners = () => {
   slider.noUiSlider.on('update', onSliderInputUpdate);
-  priceField.addEventListener('change', onInputSliderChange);
+  priceField.addEventListener('change', onPriceFieldChange);
 };
 
 const initSlider = () => {

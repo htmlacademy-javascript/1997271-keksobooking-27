@@ -1,7 +1,3 @@
-const offerTemplate = document
-  .querySelector('#card')
-  .content.querySelector('.popup');
-
 const popupType = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -9,6 +5,10 @@ const popupType = {
   palace: 'Дворец',
   hotel: 'Отель',
 };
+
+const offerTemplate = document
+  .querySelector('#card')
+  .content.querySelector('.popup');
 
 const createSimpleString = (data, parent, selector, additionalText = '') => {
   const element = parent.querySelector(selector);

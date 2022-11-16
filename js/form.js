@@ -4,18 +4,6 @@ import { renderPostErrorMessage } from './error.js';
 import { resetMap, setStartAddressValue } from './map.js';
 import { clearImageBlocks, addPhotoInputsListeners } from './preload-images.js';
 
-const form = document.querySelector('.ad-form');
-const titleField = document.querySelector('#title');
-const roomsField = document.querySelector('#room_number');
-const guestsField = document.querySelector('#capacity');
-const timeInField = document.querySelector('#timein');
-const timeOutField = document.querySelector('#timeout');
-const typeField = document.querySelector('#type');
-const priceField = document.querySelector('#price');
-const filterForm = document.querySelector('.map__filters');
-const slider = document.querySelector('.ad-form__slider');
-const submitButton = document.querySelector('.ad-form__submit');
-
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
@@ -33,6 +21,18 @@ const typeToPrice = {
   house: 3000,
   palace: 100000,
 };
+
+const form = document.querySelector('.ad-form');
+const titleField = document.querySelector('#title');
+const roomsField = document.querySelector('#room_number');
+const guestsField = document.querySelector('#capacity');
+const timeInField = document.querySelector('#timein');
+const timeOutField = document.querySelector('#timeout');
+const typeField = document.querySelector('#type');
+const priceField = document.querySelector('#price');
+const filterForm = document.querySelector('.map__filters');
+const slider = document.querySelector('.ad-form__slider');
+const submitButton = document.querySelector('.ad-form__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
